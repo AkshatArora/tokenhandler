@@ -31,13 +31,21 @@ var token = req.body.token || req.headers['token'];
 if(token){
 	jwt.verify(token,process.env.SECRET_KEY,function(err,decode){
 		if(err){
+			console.log(err, decode);
+			if(err.expiredAt)
+			res.status(500).send('Your token has expired');
+		else
 			res.status(500).send('invalid token')
 		}
 		else{
+			console.log(err, decode);
+			
 			next();
 		}
+		
 	})
 }
+
 else{
 	res.send('please send a token')
 }
