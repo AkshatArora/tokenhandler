@@ -12,21 +12,16 @@ module.exports.getData = function(req,res){
 
 module.exports.postData = function(req,res){
 	var person = new Person(req.body);
-jwt.verify(req.body.token, process.env.SECRET_KEY, function(err, decoded) {
-		    console.log(err, decoded);
-		    if(decoded)
-		    	{
-		    		res.send("your token has expired")}
-else{
+
 	person.save(function(err){
 		if(err){
 			return res.status(500).send("couldn't save the user at this time.")
 		}
 });
 
-
 		
 
 		res.status(200).send("you have added a new person")
-}});
 }
+
+
